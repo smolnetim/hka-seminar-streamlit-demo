@@ -1,0 +1,6 @@
+# Explizit
+.streamlit/config.toml
+.streamlit/secrets.toml
+
+# Implizit
+*.toml
