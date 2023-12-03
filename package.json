@@ -1,0 +1,21 @@
+{
+	"name": "hka-seminar-streamlit",
+	"version": "1.0.0",
+	"description": "Eine Seminararbeit an der Hochschule Karlsruhe (<https://h-ka.de>)",
+	"scripts": {
+		"win:init-local": "COPY .env.local .env && npm install",
+		"lnx:init-local": "cp .env.local .env && npm install",
+		"mac:init-local": "npm run lnx:init-local"
+	},
+	"repository": {
+		"type": "git",
+		"url": "ssh://git@gitlab.usa-life.net:8022/larry/hka-seminar-streamlit.git"
+	},
+	"author": "Tim Smolne",
+	"license": "ISC",
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	}
+}

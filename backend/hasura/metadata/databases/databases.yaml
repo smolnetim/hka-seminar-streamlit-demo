@@ -1,0 +1,11 @@
+- name: web
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: HASURA_WEB_DB_CONNECTION_URL
+      isolation_level: read-committed
+      use_prepared_statements: false
+  customization:
+    naming_convention: graphql-default
+  tables: "!include web/tables/tables.yaml"

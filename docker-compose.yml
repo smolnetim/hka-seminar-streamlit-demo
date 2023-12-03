@@ -1,0 +1,64 @@
+version: '3.6'
+volumes:
+    streamlit_db_web:
+        driver: local
+services:
+    postgres:
+        image: postgres:15
+        ports:
+            - ${POSTGRES_PORT}:5432
+        volumes:
+            - streamlit_db_web:/var/lib/postgresql/data
+            - ./backend/db/initdb:/docker-entrypoint-initdb.d
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -d postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/postgres"
+                ]
+            interval: 5s
+            timeout: 2s
+            retries: 50
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    hasura:
+        image: hasura/graphql-engine:v2.34.0.cli-migrations-v3
+        ports:
+            - ${HASURA_PORT}:8080
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        depends_on:
+            postgres:
+                condition: service_healthy
+        healthcheck:
+            test: timeout 1s bash -c ':> /dev/tcp/localhost/8080' || exit 1
+            interval: 5s
+            timeout: 2s
+            retries: 100
+            start_period: 30s
+        volumes:
+            - ./backend/hasura/migrations:/hasura-migrations
+            - ./backend/hasura/metadata:/hasura-metadata
+        environment:
+            HASURA_GRAPHQL_METADATA_DATABASE_URL: ${HASURA_GRAPHQL_METADATA_DATABASE_URL}
+            # CONFIGURATION
+            HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: ${HASURA_GRAPHQL_EXPERIMENTAL_FEATURES}
+            HASURA_GRAPHQL_STRINGIFY_NUMERIC_TYPES: ${HASURA_GRAPHQL_STRINGIFY_NUMERIC_TYPES}
+            HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: ${HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS}
+            # SECURITY
+            HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+            HASURA_GRAPHQL_JWT_SECRET: ${HASURA_GRAPHQL_JWT_SECRET}
+            HASURA_GRAPHQL_UNAUTHORIZED_ROLE: ${HASURA_GRAPHQL_UNAUTHORIZED_ROLE}
+            # DEBUGGING
+            HASURA_GRAPHQL_DEV_MODE: ${HASURA_GRAPHQL_DEV_MODE}
+            HASURA_GRAPHQL_ENABLE_CONSOLE: ${HASURA_GRAPHQL_ENABLE_CONSOLE}
+            HASURA_GRAPHQL_ENABLED_LOG_TYPES: ${HASURA_GRAPHQL_ENABLED_LOG_TYPES}
+            # DATABASES
+            HASURA_WEB_DB_CONNECTION_URL: ${HASURA_WEB_DB_CONNECTION_URL}
+    web-app:
+        build:
+            context: ./frontend/web-app
+            dockerfile: Dockerfile
+        ports:
+            - ${WEB_APP_PORT}:8501
