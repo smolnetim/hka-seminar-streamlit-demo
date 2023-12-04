@@ -5,7 +5,7 @@ st.set_page_config(
     page_icon="👋",
 )
 
-st.write("# Willkommen in meiner App! 👋")
+st.write("# Willkommen in meiner App!👋")
 
 st.markdown(
     """
