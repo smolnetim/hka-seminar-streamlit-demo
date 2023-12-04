@@ -1,0 +1,12 @@
+table:
+  name: dataset
+  schema: public
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - value1
+        - value2
+        - created_at
+      filter: {}
+    comment: ""

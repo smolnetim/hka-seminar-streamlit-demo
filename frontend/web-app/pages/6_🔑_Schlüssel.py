@@ -3,6 +3,8 @@ import os
 
 st.set_page_config(page_title="Schlüssel", page_icon="🔑")
 
+st.write('# 🔑 Schlüssel')
+
 # st.secrets hat Zugriff auf alles
 st.write("DB Benutzername:", st.secrets["db_username"])
 st.write("DB Passwort:", st.secrets["db_password"])

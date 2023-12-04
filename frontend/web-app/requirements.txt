@@ -8,3 +8,5 @@ nbformat>=4.2.0
 streamlit-extras
 pydeck==0.7.1
 protobuf==3.19.5
+SQLAlchemy==1.4.0
+psycopg2-binary

@@ -4,6 +4,8 @@ import random
 
 st.set_page_config(page_title="Dateneingabe", page_icon="✏️")
 
+st.write('# ✏️ Dateneingabe')
+
 # Prüfen, ob 'dataframe' bereits im Session State existiert
 if 'dataframe' not in st.session_state:
     st.session_state['dataframe'] = pd.DataFrame({"Zahl": []})

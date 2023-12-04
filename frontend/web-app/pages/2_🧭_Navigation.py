@@ -3,6 +3,8 @@ import numpy as np
 
 st.set_page_config(page_title="Navigation", page_icon="🧭")
 
+st.write('# 🧭 Navigation')
+
 tab1, tab2 = st.tabs(["📈 Graph", "🗃 Daten"])
 data = np.random.randn(10, 1)
 
