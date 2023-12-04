@@ -5,6 +5,7 @@ import pandas as pd
 st.set_page_config(page_title="GraphQL", page_icon="📈")
 
 st.write('# 📈 Graphql')
+st.write('Diese Seite funktioniert nur in der Lokalen Docker Compose Umgebung mit dem Hasura Backend.')
 
 # GraphQL Query
 query = """
