@@ -6,7 +6,7 @@ st.write('# 🗄️ Datenbank')
 st.write('Diese Seite funktioniert nur in der Lokalen Docker Compose Umgebung mit der PostgreSQL Datenbank.')
 
 # Verbinde zur Datenbank
-conn = st.connection('demo_db', type='sql')
+conn = st.experimental_connection('demo_db', type='sql')
 
 # Daten laden und anzeigen
 df = conn.query('select * from dataset')

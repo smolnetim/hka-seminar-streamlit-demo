@@ -21,10 +21,10 @@ BEGIN
     last_value1 := floor(random() * 500)::integer;
     last_value2 := floor(random() * 500)::integer;
 
-    -- Insert 5040 entries
-    FOR i IN 1..5040 LOOP
+    -- Insert 2880 entries
+    FOR i IN 1..2880 LOOP
         -- Insert a new row
-        INSERT INTO public.dataset(created_at, value1, value2) 
+        INSERT INTO public.dataset(created_at, value1, value2)
         VALUES (time_stamp, last_value1, last_value2);
 
         -- Update time_stamp, last_value1 and last_value2 for the next iteration

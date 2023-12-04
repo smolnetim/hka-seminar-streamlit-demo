@@ -4,4 +4,3 @@ COPY . .
 
 RUN pip install -r ./frontend/web-app/requirements.txt
 RUN python -m ipykernel install --user
-RUN pip install streamlit --upgrade
