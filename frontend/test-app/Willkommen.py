@@ -2,12 +2,7 @@
 import streamlit as st
 st.write("# Hallo Welt 👋🏻")
 
-# Dataset als Tabelle ausgeben
-import seaborn as sns
-df = sns.load_dataset('mpg')
-st.dataframe(df)
-
-# Als Graph ausgeben
-import plotly.express as px
-fig = px.scatter(df, x='horsepower', y='mpg', color='origin')
-st.plotly_chart(fig)
+import pandas as pd
+import numpy as np
+chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+st.line_chart(chart_data)
